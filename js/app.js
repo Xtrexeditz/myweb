@@ -365,18 +365,18 @@ const projectData = {
     repoUrl: 'https://github.com/xtrexeditz/Personalized-Ai-assistant'
   },
   web: {
-    title: 'XTrex Travel Website (Maharaja)',
-    category: 'Web Application & UI',
+    title: 'Maharaja Bus Booking (Travel Platform)',
+    category: 'Travel & Web Application',
     image: 'assets/project-telematics.jpg',
-    description: 'Front-end design showcasing travel exploration features with HTML, CSS, and JavaScript. Emphasizes cross-device responsiveness, interactive UI components, and GitHub Pages continuous deployment.',
+    description: 'Online bus reservation and route ticket booking platform featuring interactive seat selection, fleet schedules, and responsive booking workflows deployed on GitHub Pages.',
     stats: [
-      { label: 'Tech Stack', value: 'HTML/CSS/JS' },
-      { label: 'Design', value: 'Responsive' },
+      { label: 'Platform', value: 'Web / Travel' },
+      { label: 'Design', value: 'Responsive UI' },
       { label: 'Hosting', value: 'GitHub Pages' }
     ],
     tech: ['HTML5', 'CSS3', 'JavaScript', 'GitHub Pages'],
-    demoUrl: 'https://xtrexeditz.github.io/Maharaja-/',
-    repoUrl: 'https://github.com/xtrexeditz/Maharaja-'
+    demoUrl: 'https://xtrexeditz.github.io/Maharajabusbooking/',
+    repoUrl: 'https://github.com/Xtrexeditz/Maharajabusbooking'
   },
   rental: {
     title: 'Peer-to-Peer Rental Marketplace',
@@ -588,12 +588,12 @@ function triggerResumePrintOrDownload() {
 
         <div class="item">
           <div class="item-title">
-            <span>XTrex Travel Website (Maharaja)</span>
-            <span>HTML/CSS, JavaScript</span>
+            <span>Maharaja Bus Booking Platform</span>
+            <span>HTML/CSS, JavaScript, GitHub Pages</span>
           </div>
           <ul>
-            <li>Created a user-friendly travel site with interactive UI components and cross-device compatibility.</li>
-            <li>Deployed on GitHub Pages demonstrating practical web deployment and version control.</li>
+            <li>Online bus reservation and route booking platform with interactive seat selection and schedule fleet view.</li>
+            <li>Deployed on GitHub Pages demonstrating practical front-end engineering and version control.</li>
           </ul>
         </div>
       </div>
