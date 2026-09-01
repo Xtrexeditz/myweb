@@ -189,15 +189,20 @@ function initM5IntroSequence() {
   const introLoader = document.getElementById('m5-intro-loader');
   if (!introLoader) return;
 
-  // Sound triggers on any user touch/click/key
+  // Attempt immediate auto-play
+  try {
+    m5Audio.playRealisticM5Roar();
+  } catch (e) {}
+
+  // Instant trigger on first touch/click
   const instantAudioTrigger = () => {
     m5Audio.playRealisticM5Roar();
   };
 
-  window.addEventListener('touchstart', instantAudioTrigger, { passive: true });
-  window.addEventListener('pointerdown', instantAudioTrigger, { passive: true });
-  window.addEventListener('click', instantAudioTrigger, { passive: true });
-  window.addEventListener('keydown', instantAudioTrigger, { passive: true });
+  window.addEventListener('touchstart', instantAudioTrigger, { passive: true, once: true });
+  window.addEventListener('pointerdown', instantAudioTrigger, { passive: true, once: true });
+  window.addEventListener('click', instantAudioTrigger, { passive: true, once: true });
+  window.addEventListener('keydown', instantAudioTrigger, { passive: true, once: true });
 
   // Auto transition cleanly into portfolio (~2.6s)
   setTimeout(() => {
@@ -249,13 +254,6 @@ function initNavbar() {
   const brandLogo = document.getElementById('brand-logo');
   if (brandLogo) {
     brandLogo.addEventListener('click', () => {
-      m5Audio.playRealisticM5Roar();
-    });
-  }
-
-  const m5SoundBtn = document.getElementById('m5-sound-btn');
-  if (m5SoundBtn) {
-    m5SoundBtn.addEventListener('click', () => {
       m5Audio.playRealisticM5Roar();
     });
   }
