@@ -2009,55 +2009,150 @@ input, textarea {
 }
 
 /* ==========================================================================
-   Responsive Breakpoints
+   Responsive Breakpoints & Mobile Optimization
    ========================================================================== */
 @media (max-width: 1024px) {
-  .hero-title { font-size: 3.2rem; }
+  .hero-title { font-size: 3rem; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  .about-visual-wrapper { max-width: 480px; margin: 0 auto; }
+  .about-visual-wrapper { max-width: 440px; margin: 0 auto; }
   .cv-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; padding: 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .contact-grid { grid-template-columns: 1fr; padding: 36px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .certifications-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 }
 
 @media (max-width: 768px) {
-  .m5-headlights-rig { gap: 30px; }
-  .m5-drl-light { width: 90px; height: 28px; }
-  .m5-brand-title { font-size: 2.8rem; }
+  /* Global Spacing */
+  .section-padding { padding: 70px 0; }
+  .section-title { font-size: 2.1rem; }
+  .section-tag { font-size: 0.78rem; }
+
+  /* M5 Intro Animation Scaling */
+  .m5-intro-content { width: 92%; }
+  .m5-headlights-rig { gap: 20px; transform: scale(0.85); }
+  .m5-drl-light { width: 80px; height: 24px; }
+  .m5-brand-title { font-size: 2.3rem; }
+  .m5-cockpit-canvas { transform: scale(0.85); }
+
+  /* Navigation & Drawer Menu */
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
-    max-width: 340px;
+    width: 82%;
+    max-width: 320px;
     height: 100vh;
     background: var(--bg-surface);
     flex-direction: column;
     justify-content: center;
-    gap: 24px;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+    gap: 20px;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
     transition: right var(--transition-smooth);
     z-index: 1050;
-    padding: 40px;
+    padding: 36px;
+    border-left: 2px solid var(--m-light-blue);
   }
   .nav-menu.active { right: 0; }
+  .nav-link { font-size: 1.1rem; padding: 8px 0; }
   .mobile-toggle { display: flex; }
-  .hero-title { font-size: 2.5rem; }
-  .hero-metrics { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+  .nav-actions .btn-nav { display: none; }
+
+  /* Hero Section */
+  .hero { padding-top: 100px; padding-bottom: 60px; min-height: auto; }
+  .hero-tagline { font-size: 0.82rem; padding: 6px 14px; }
+  .hero-title { font-size: 2.4rem; }
+  .hero-desc { font-size: 0.95rem; }
+  .hero-actions { display: flex; flex-direction: column; width: 100%; gap: 12px; }
+  .hero-actions .btn { width: 100%; justify-content: center; padding: 14px 20px; }
+  .hero-metrics { grid-template-columns: 1fr; gap: 12px; padding: 18px 20px; width: 100%; }
+  .metric-item { display: flex; justify-content: space-between; align-items: center; text-align: left; }
   .metric-item:not(:last-child)::after { display: none; }
-  .timeline::before { left: 20px; }
+  .metric-value { font-size: 1.6rem; }
+
+  /* About Me Section */
+  .about-photo { max-width: 240px; margin: 0 auto 24px; }
+  .about-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-box { padding: 18px 14px; }
+  .stat-number { font-size: 1.5rem; }
+  .about-info-grid { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Resume / CV Section */
+  .cv-showcase { padding: 28px 20px; }
+  .cv-highlights { grid-template-columns: 1fr; gap: 12px; }
+  .cv-actions { display: flex; flex-direction: column; width: 100%; gap: 10px; }
+  .cv-actions .btn { width: 100%; justify-content: center; }
+
+  /* Education Timeline */
+  .timeline::before { left: 16px; }
   .timeline-item {
     width: 100%;
     left: 0 !important;
-    padding-left: 56px !important;
+    padding-left: 46px !important;
     padding-right: 0 !important;
     text-align: left !important;
+    margin-bottom: 28px;
   }
-  .timeline-item .timeline-node { left: 10px !important; right: auto !important; }
-  .timeline-badges { justify-content: flex-start !important; }
-  .cv-showcase { padding: 32px 24px; }
-  .cv-highlights { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .timeline-item .timeline-node { left: 8px !important; right: auto !important; width: 18px; height: 18px; }
+  .timeline-card { padding: 22px 18px; }
+  .timeline-degree { font-size: 1.18rem; }
+  .timeline-badges { justify-content: flex-start !important; gap: 6px; }
+
+  /* Certifications Grid */
+  .certifications-grid { grid-template-columns: 1fr; gap: 18px; }
+  .cert-card { padding: 24px 20px; }
+
+  /* Projects Grid */
+  .projects-filter {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    margin-bottom: 28px;
+    justify-content: flex-start;
+    scrollbar-width: none;
+  }
+  .projects-filter::-webkit-scrollbar { display: none; }
+  .filter-btn { white-space: nowrap; flex-shrink: 0; padding: 8px 18px; font-size: 0.86rem; }
+  .projects-grid { grid-template-columns: 1fr; gap: 28px; }
+  .project-thumb-container { height: 210px; }
+  .project-body { padding: 24px 20px; }
+  .project-footer { display: flex; flex-direction: column; gap: 10px; width: 100%; align-items: stretch; }
+  .project-footer .project-link-btn { width: 100%; justify-content: center; padding: 12px; }
+
+  /* Socials Bar */
+  .socials-panel { padding: 24px 16px; }
+  .socials-pills-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  .social-pill { width: 100%; justify-content: center; padding: 12px 14px; font-size: 0.88rem; }
+
+  /* Contact Section */
+  .contact-grid { padding: 28px 20px; gap: 32px; }
+  .contact-detail-item { padding: 14px 16px; }
+  .form-input, .form-textarea { font-size: 16px; padding: 14px; }
+  .form-submit-btn { width: 100%; justify-content: center; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+
+  /* Modal Container */
+  .modal-backdrop { padding: 14px; }
+  .modal-container { padding: 26px 18px; max-height: 86vh; }
+  .modal-close-btn { top: 14px; right: 14px; width: 34px; height: 34px; font-size: 1.1rem; }
 }
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 2.1rem; }
+  .m5-headlights-rig { gap: 12px; transform: scale(0.72); }
+  .m5-brand-title { font-size: 1.9rem; }
+  .about-stats { grid-template-columns: 1fr; }
+  .socials-pills-bar { grid-template-columns: 1fr; }
+  .stat-number { font-size: 1.35rem; }
+  .timeline-item { padding-left: 38px !important; }
+}
+
