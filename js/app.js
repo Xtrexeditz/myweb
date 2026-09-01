@@ -12,207 +12,192 @@ class M5RealisticAudioEngine {
   constructor() {
     this.ctx = null;
     this.enabled = true;
-    this.hasPlayed = false;
-    // Pre-warm AudioContext immediately
-    this.init();
+    this.isPlaying = false;
   }
 
-  init() {
-    if (!this.ctx) {
+  getOrCreateContext() {
+    if (!this.ctx || this.ctx.state === 'closed') {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
       }
     }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume().catch(() => {});
-    }
-  }
-
-  toggle() {
-    this.enabled = !this.enabled;
-    return this.enabled;
+    return this.ctx;
   }
 
   playRealisticM5Roar() {
-    if (!this.enabled || this.hasPlayed) return;
-    this.hasPlayed = true;
+    if (!this.enabled) return;
 
     try {
-      this.init();
-      if (!this.ctx) return;
+      const ctx = this.getOrCreateContext();
+      if (!ctx) return;
 
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume().then(() => this._executeSynth());
+      if (ctx.state === 'suspended') {
+        ctx.resume().then(() => {
+          this._executeSynth(ctx);
+        }).catch(() => {
+          this._executeSynth(ctx);
+        });
       } else {
-        this._executeSynth();
+        this._executeSynth(ctx);
       }
     } catch (e) {
-      console.warn('Audio note:', e);
+      console.warn('Audio trigger exception:', e);
     }
   }
 
-  _executeSynth() {
-    try {
-      const now = this.ctx.currentTime;
+  _executeSynth(ctx) {
+    if (this.isPlaying) return;
+    this.isPlaying = true;
+    setTimeout(() => { this.isPlaying = false; }, 2400);
 
-      // --- 1. Instant Starter Ignition Strike (0ms latency) ---
-      const crankOsc = this.ctx.createOscillator();
-      const crankGain = this.ctx.createGain();
-      crankOsc.type = 'sawtooth';
-      crankOsc.frequency.setValueAtTime(220, now);
-      crankOsc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
-      
-      crankGain.gain.setValueAtTime(0.4, now);
-      crankGain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-      
-      crankOsc.connect(crankGain);
-      crankGain.connect(this.ctx.destination);
-      crankOsc.start(now);
-      crankOsc.stop(now + 0.09);
+    const now = ctx.currentTime;
 
-      // --- 2. Instant Aggressive V8 Twin-Turbo Ignition (Immediate at now + 0.04s) ---
-      const startTime = now + 0.04;
-      const oscV8_1 = this.ctx.createOscillator();
-      const oscV8_2 = this.ctx.createOscillator();
-      const oscSub = this.ctx.createOscillator();
-      const engineFilter = this.ctx.createBiquadFilter();
-      const engineGain = this.ctx.createGain();
+    // --- 1. Starter Ignition Strike (0ms) ---
+    const crankOsc = ctx.createOscillator();
+    const crankGain = ctx.createGain();
+    crankOsc.type = 'sawtooth';
+    crankOsc.frequency.setValueAtTime(240, now);
+    crankOsc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
+    
+    crankGain.gain.setValueAtTime(0.5, now);
+    crankGain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+    
+    crankOsc.connect(crankGain);
+    crankGain.connect(ctx.destination);
+    crankOsc.start(now);
+    crankOsc.stop(now + 0.09);
 
-      oscV8_1.type = 'sawtooth';
-      oscV8_2.type = 'sawtooth';
-      oscSub.type = 'triangle';
+    // --- 2. V8 Twin-Turbo Raw Roar ---
+    const startTime = now + 0.04;
+    const oscV8_1 = ctx.createOscillator();
+    const oscV8_2 = ctx.createOscillator();
+    const oscSub = ctx.createOscillator();
+    const engineFilter = ctx.createBiquadFilter();
+    const engineGain = ctx.createGain();
 
-      // Instant M5 V8 Power Curve: Immediate raw roar spike
-      oscV8_1.frequency.setValueAtTime(95, startTime);
-      oscV8_1.frequency.exponentialRampToValueAtTime(240, startTime + 0.35);
-      oscV8_1.frequency.exponentialRampToValueAtTime(420, startTime + 0.95);
-      oscV8_1.frequency.exponentialRampToValueAtTime(260, startTime + 1.5);
-      oscV8_1.frequency.exponentialRampToValueAtTime(90, startTime + 2.2);
+    oscV8_1.type = 'sawtooth';
+    oscV8_2.type = 'sawtooth';
+    oscSub.type = 'triangle';
 
-      oscV8_2.frequency.setValueAtTime(93, startTime); // Detuned for rich aggressive V8 roar
-      oscV8_2.frequency.exponentialRampToValueAtTime(236, startTime + 0.35);
-      oscV8_2.frequency.exponentialRampToValueAtTime(414, startTime + 0.95);
-      oscV8_2.frequency.exponentialRampToValueAtTime(255, startTime + 1.5);
-      oscV8_2.frequency.exponentialRampToValueAtTime(88, startTime + 2.2);
+    // M5 Pitch Curve
+    oscV8_1.frequency.setValueAtTime(95, startTime);
+    oscV8_1.frequency.exponentialRampToValueAtTime(240, startTime + 0.35);
+    oscV8_1.frequency.exponentialRampToValueAtTime(420, startTime + 0.95);
+    oscV8_1.frequency.exponentialRampToValueAtTime(260, startTime + 1.5);
+    oscV8_1.frequency.exponentialRampToValueAtTime(90, startTime + 2.2);
 
-      // Deep Sub-Bass exhaust pressure rumble
-      oscSub.frequency.setValueAtTime(45, startTime);
-      oscSub.frequency.exponentialRampToValueAtTime(110, startTime + 0.4);
-      oscSub.frequency.exponentialRampToValueAtTime(210, startTime + 0.95);
-      oscSub.frequency.exponentialRampToValueAtTime(48, startTime + 2.2);
+    oscV8_2.frequency.setValueAtTime(93, startTime);
+    oscV8_2.frequency.exponentialRampToValueAtTime(236, startTime + 0.35);
+    oscV8_2.frequency.exponentialRampToValueAtTime(414, startTime + 0.95);
+    oscV8_2.frequency.exponentialRampToValueAtTime(255, startTime + 1.5);
+    oscV8_2.frequency.exponentialRampToValueAtTime(88, startTime + 2.2);
 
-      // Resonant Low-Pass Filter shaping
-      engineFilter.type = 'lowpass';
-      engineFilter.frequency.setValueAtTime(320, startTime);
-      engineFilter.frequency.exponentialRampToValueAtTime(2200, startTime + 0.95);
-      engineFilter.frequency.exponentialRampToValueAtTime(420, startTime + 2.2);
-      engineFilter.Q.setValueAtTime(3.8, startTime);
+    oscSub.frequency.setValueAtTime(45, startTime);
+    oscSub.frequency.exponentialRampToValueAtTime(110, startTime + 0.4);
+    oscSub.frequency.exponentialRampToValueAtTime(210, startTime + 0.95);
+    oscSub.frequency.exponentialRampToValueAtTime(48, startTime + 2.2);
 
-      // Master Volume Envelope
-      engineGain.gain.setValueAtTime(0.01, startTime);
-      engineGain.gain.linearRampToValueAtTime(0.5, startTime + 0.15);
-      engineGain.gain.linearRampToValueAtTime(0.6, startTime + 0.95);
-      engineGain.gain.exponentialRampToValueAtTime(0.01, startTime + 2.3);
+    engineFilter.type = 'lowpass';
+    engineFilter.frequency.setValueAtTime(320, startTime);
+    engineFilter.frequency.exponentialRampToValueAtTime(2400, startTime + 0.95);
+    engineFilter.frequency.exponentialRampToValueAtTime(420, startTime + 2.2);
+    engineFilter.Q.setValueAtTime(3.8, startTime);
 
-      oscV8_1.connect(engineFilter);
-      oscV8_2.connect(engineFilter);
-      oscSub.connect(engineFilter);
-      engineFilter.connect(engineGain);
-      engineGain.connect(this.ctx.destination);
+    engineGain.gain.setValueAtTime(0.01, startTime);
+    engineGain.gain.linearRampToValueAtTime(0.55, startTime + 0.15);
+    engineGain.gain.linearRampToValueAtTime(0.65, startTime + 0.95);
+    engineGain.gain.exponentialRampToValueAtTime(0.01, startTime + 2.3);
 
-      oscV8_1.start(startTime);
-      oscV8_2.start(startTime);
-      oscSub.start(startTime);
+    oscV8_1.connect(engineFilter);
+    oscV8_2.connect(engineFilter);
+    oscSub.connect(engineFilter);
+    engineFilter.connect(engineGain);
+    engineGain.connect(ctx.destination);
 
-      oscV8_1.stop(startTime + 2.3);
-      oscV8_2.stop(startTime + 2.3);
-      oscSub.stop(startTime + 2.3);
+    oscV8_1.start(startTime);
+    oscV8_2.start(startTime);
+    oscSub.start(startTime);
 
-      // --- 3. Twin-Turbo High-Speed Whistle & Spool Up ---
-      const turboTime = startTime + 0.15;
-      const turboOsc = this.ctx.createOscillator();
-      const turboFilter = this.ctx.createBiquadFilter();
-      const turboGain = this.ctx.createGain();
+    oscV8_1.stop(startTime + 2.3);
+    oscV8_2.stop(startTime + 2.3);
+    oscSub.stop(startTime + 2.3);
 
-      turboOsc.type = 'sine';
-      turboOsc.frequency.setValueAtTime(1100, turboTime);
-      turboOsc.frequency.exponentialRampToValueAtTime(3800, turboTime + 0.8);
-      turboOsc.frequency.exponentialRampToValueAtTime(1400, turboTime + 1.6);
+    // --- 3. Turbo High Whistle ---
+    const turboTime = startTime + 0.15;
+    const turboOsc = ctx.createOscillator();
+    const turboFilter = ctx.createBiquadFilter();
+    const turboGain = ctx.createGain();
 
-      turboFilter.type = 'bandpass';
-      turboFilter.frequency.setValueAtTime(2400, turboTime);
-      turboFilter.Q.setValueAtTime(4.0, turboTime);
+    turboOsc.type = 'sine';
+    turboOsc.frequency.setValueAtTime(1100, turboTime);
+    turboOsc.frequency.exponentialRampToValueAtTime(3800, turboTime + 0.8);
+    turboOsc.frequency.exponentialRampToValueAtTime(1400, turboTime + 1.6);
 
-      turboGain.gain.setValueAtTime(0.001, turboTime);
-      turboGain.gain.linearRampToValueAtTime(0.2, turboTime + 0.7);
-      turboGain.gain.exponentialRampToValueAtTime(0.001, turboTime + 1.8);
+    turboFilter.type = 'bandpass';
+    turboFilter.frequency.setValueAtTime(2400, turboTime);
+    turboFilter.Q.setValueAtTime(4.0, turboTime);
 
-      turboOsc.connect(turboFilter);
-      turboFilter.connect(turboGain);
-      turboGain.connect(this.ctx.destination);
+    turboGain.gain.setValueAtTime(0.001, turboTime);
+    turboGain.gain.linearRampToValueAtTime(0.22, turboTime + 0.7);
+    turboGain.gain.exponentialRampToValueAtTime(0.001, turboTime + 1.8);
 
-      turboOsc.start(turboTime);
-      turboOsc.stop(turboTime + 1.9);
+    turboOsc.connect(turboFilter);
+    turboFilter.connect(turboGain);
+    turboGain.connect(ctx.destination);
 
-      // --- 4. Exhaust Overrun Crackles & Turbo Blow-Off Pops ---
-      const popTimes = [startTime + 1.05, startTime + 1.2, startTime + 1.35, startTime + 1.5];
-      popTimes.forEach((pt, idx) => {
-        const bufferSize = Math.floor(this.ctx.sampleRate * 0.05);
-        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let j = 0; j < bufferSize; j++) {
-          data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.25));
-        }
+    turboOsc.start(turboTime);
+    turboOsc.stop(turboTime + 1.9);
 
-        const noise = this.ctx.createBufferSource();
-        noise.buffer = buffer;
+    // --- 4. Exhaust Pops & Burbles ---
+    const popTimes = [startTime + 1.05, startTime + 1.2, startTime + 1.35, startTime + 1.5];
+    popTimes.forEach((pt, idx) => {
+      const bufferSize = Math.floor(ctx.sampleRate * 0.05);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let j = 0; j < bufferSize; j++) {
+        data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.25));
+      }
 
-        const popFilter = this.ctx.createBiquadFilter();
-        popFilter.type = 'bandpass';
-        popFilter.frequency.setValueAtTime(900 + (idx * 320), pt);
-        popFilter.Q.setValueAtTime(2.0, pt);
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
 
-        const popGain = this.ctx.createGain();
-        popGain.gain.setValueAtTime(0.3, pt);
-        popGain.gain.exponentialRampToValueAtTime(0.01, pt + 0.05);
+      const popFilter = ctx.createBiquadFilter();
+      popFilter.type = 'bandpass';
+      popFilter.frequency.setValueAtTime(900 + (idx * 320), pt);
+      popFilter.Q.setValueAtTime(2.0, pt);
 
-        noise.connect(popFilter);
-        popFilter.connect(popGain);
-        popGain.connect(this.ctx.destination);
+      const popGain = ctx.createGain();
+      popGain.gain.setValueAtTime(0.35, pt);
+      popGain.gain.exponentialRampToValueAtTime(0.01, pt + 0.05);
 
-        noise.start(pt);
-      });
+      noise.connect(popFilter);
+      popFilter.connect(popGain);
+      popGain.connect(ctx.destination);
 
-    } catch (e) {
-      console.warn('Audio synthesis error:', e);
-    }
+      noise.start(pt);
+    });
   }
 }
 
 const m5Audio = new M5RealisticAudioEngine();
 
 /* ==========================================================================
-   1. BMW M5 Cinematic Intro Sequence Orchestrator (Instant Trigger)
+   1. BMW M5 Cinematic Intro Sequence Orchestrator
    ========================================================================== */
 function initM5IntroSequence() {
   const introLoader = document.getElementById('m5-intro-loader');
   if (!introLoader) return;
 
-  // Instant trigger on ANY user interaction with zero delay (mobile touchstart, pointerdown, click, keydown)
+  // Sound triggers on any user touch/click/key
   const instantAudioTrigger = () => {
     m5Audio.playRealisticM5Roar();
-    ['touchstart', 'pointerdown', 'mousedown', 'click', 'keydown', 'scroll'].forEach(evt => {
-      window.removeEventListener(evt, instantAudioTrigger);
-    });
   };
 
-  ['touchstart', 'pointerdown', 'mousedown', 'click', 'keydown', 'scroll'].forEach(evt => {
-    window.addEventListener(evt, instantAudioTrigger, { passive: true, once: true });
-  });
-
-  // Try immediate autoplay instantly without waiting
-  m5Audio.playRealisticM5Roar();
+  window.addEventListener('touchstart', instantAudioTrigger, { passive: true });
+  window.addEventListener('pointerdown', instantAudioTrigger, { passive: true });
+  window.addEventListener('click', instantAudioTrigger, { passive: true });
+  window.addEventListener('keydown', instantAudioTrigger, { passive: true });
 
   // Auto transition cleanly into portfolio (~2.6s)
   setTimeout(() => {
@@ -264,7 +249,6 @@ function initNavbar() {
   const brandLogo = document.getElementById('brand-logo');
   if (brandLogo) {
     brandLogo.addEventListener('click', () => {
-      m5Audio.hasPlayed = false;
       m5Audio.playRealisticM5Roar();
     });
   }
