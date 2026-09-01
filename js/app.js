@@ -378,6 +378,20 @@ const projectData = {
     demoUrl: 'https://xtrexeditz.github.io/Maharaja-/',
     repoUrl: 'https://github.com/xtrexeditz/Maharaja-'
   },
+  rental: {
+    title: 'Peer-to-Peer Rental Marketplace',
+    category: 'Full-Stack Web Marketplace',
+    image: 'assets/project-rental.jpg',
+    description: 'A scalable peer-to-peer equipment and goods rental marketplace allowing users to list, discover, rent, and manage equipment securely with automated booking workflows and real-time availability tracking.',
+    stats: [
+      { label: 'Architecture', value: 'Full-Stack' },
+      { label: 'Platform', value: 'Render Cloud' },
+      { label: 'Status', value: 'Live' }
+    ],
+    tech: ['Node.js', 'Express.js', 'JavaScript', 'HTML/CSS', 'Render Cloud'],
+    demoUrl: 'https://peer-to-peer-rental-marketplace.onrender.com',
+    repoUrl: 'https://github.com/Xtrexeditz/peer-to-peer-rental-marketplace'
+  },
   dsa: {
     title: 'Problem Solving & LeetCode Track',
     category: 'Data Structures & Algorithms',
@@ -563,7 +577,18 @@ function triggerResumePrintOrDownload() {
 
         <div class="item">
           <div class="item-title">
-            <span>XTrex Travel Website (2025)</span>
+            <span>Peer-to-Peer Rental Marketplace</span>
+            <span>Node.js, Express, JavaScript, Render Cloud</span>
+          </div>
+          <ul>
+            <li>Built a full-featured rental platform allowing users to discover, list, and rent equipment with automated booking workflows.</li>
+            <li>Deployed on Render Cloud with real-time availability tracking and responsive UI design.</li>
+          </ul>
+        </div>
+
+        <div class="item">
+          <div class="item-title">
+            <span>XTrex Travel Website (Maharaja)</span>
             <span>HTML/CSS, JavaScript</span>
           </div>
           <ul>
