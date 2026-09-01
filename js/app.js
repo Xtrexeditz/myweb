@@ -551,7 +551,7 @@ function triggerResumePrintOrDownload() {
       <div class="subtitle">Aspiring Data Scientist | Python, ML, Data Analysis</div>
       <div class="contact">
         📧 rammandloi142@gmail.com | 📞 +91 9343223908 | 📍 Sanawad, Madhya Pradesh<br>
-        🔗 github.com/xtrexeditz | linkedin.com/in/ram-mandloi-1b80b1347
+        🔗 github.com/xtrexeditz | linkedin.com/in/ram-mandloi-1b80b1347 | leetcode.com/u/xtrexeditz
       </div>
 
       <div class="section">
