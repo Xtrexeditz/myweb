@@ -253,6 +253,13 @@ function initNavbar() {
     });
   }
 
+  const m5SoundBtn = document.getElementById('m5-sound-btn');
+  if (m5SoundBtn) {
+    m5SoundBtn.addEventListener('click', () => {
+      m5Audio.playRealisticM5Roar();
+    });
+  }
+
   if (mobileToggle && navMenu) {
     mobileToggle.addEventListener('click', () => {
       mobileToggle.classList.toggle('active');
