@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ram Mandloi (XTrex) — Aspiring Data Scientist, Python & Machine Learning Engineer, and Software Developer.">
+  <meta name="keywords" content="Ram Mandloi, XTrex, Data Science, Python, Machine Learning, Web Development, SAGE University, Portfolio">
+  <meta name="author" content="Ram Mandloi">
+  
+  <meta property="og:title" content="Ram Mandloi | XTrex Portfolio">
+  <meta property="og:description" content="Portfolio of Ram Mandloi — Data Science, AI Assistant, and Web Development.">
+  <meta property="og:type" content="website">
+  
+  <title>Ram Mandloi | XTrex Portfolio</title>
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- ========================================================================
+       BMW M5 CINEMATIC INTRO (WHITE • RED • BLUE • BLACK)
+       ======================================================================== -->
+  <div id="m5-intro-loader" aria-label="XTrex Startup Animation">
+    <div class="m5-intro-tunnel"></div>
+    <div class="m5-speed-lines"></div>
+
+    <!-- Twin Laser Headlights -->
+    <div class="m5-headlights-rig">
+      <div class="m5-drl-light">
+        <svg viewBox="0 0 130 38">
+          <path d="M5 25 L40 5 L115 5 L125 33 L20 33 Z" />
+          <path d="M48 10 L105 10 L113 28 L32 28 Z" style="stroke-width: 1.8; opacity: 0.8;" />
+        </svg>
+      </div>
+
+      <div class="m5-drl-light">
+        <svg viewBox="0 0 130 38" style="transform: scaleX(-1);">
+          <path d="M5 25 L40 5 L115 5 L125 33 L20 33 Z" />
+          <path d="M48 10 L105 10 L113 28 L32 28 Z" style="stroke-width: 1.8; opacity: 0.8;" />
+        </svg>
+      </div>
+    </div>
+
+    <!-- M Telemetry Speedometer Bar -->
+    <div class="m5-telemetry-hud">
+      <div class="m5-rpm-bar">
+        <div class="m5-rpm-fill"></div>
+      </div>
+    </div>
+
+    <!-- Inline XTrex Brand Reveal: White Box X and Red XTrex -->
+    <div class="m5-brand-reveal">
+      <div class="m5-brand-logo">
+        <div class="m5-logo-badge">X</div>
+        <h1 class="m5-brand-title"><span class="x-red">X</span>Trex</h1>
+      </div>
+      <div class="m-stripes-bar">
+        <div class="m-stripe light-blue"></div>
+        <div class="m-stripe dark-blue"></div>
+        <div class="m-stripe red"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Header & Sticky Navigation Bar
+       ======================================================================== -->
+  <header class="header" id="header">
+    <div class="container nav-container">
+      <a href="#hero" class="logo" id="brand-logo" aria-label="XTrex Home">
+        <span class="logo-symbol">X</span>
+        <span class="logo-text"><span class="x-red">X</span>Trex<span class="logo-dot">.</span></span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#cv" class="nav-link">Resume</a></li>
+          <li><a href="#education" class="nav-link">Education</a></li>
+          <li><a href="#certifications" class="nav-link">Certifications</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#socials" class="nav-link">Socials</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary btn-nav">Contact</a>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle mobile menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========================================================================
+         Hero Section - Ram Mandloi (XTrex)
+         ======================================================================== -->
+    <section class="hero" id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-overlay-depth"></div>
+
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge reveal-on-scroll">
+            <span class="hero-badge-pulse"></span>
+            <span class="hero-badge-text">Ram Mandloi • Open to Work</span>
+          </div>
+
+          <h1 class="hero-title reveal-on-scroll">
+            Data Science & <span class="highlight-gold">Intelligent</span> Systems.
+          </h1>
+
+          <p class="hero-description reveal-on-scroll">
+            Aspiring Data Scientist specializing in Python, Machine Learning, Data Analysis, and Web Development.
+          </p>
+
+          <div class="hero-actions reveal-on-scroll">
+            <a href="#projects" class="btn btn-primary">
+              View Projects
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#cv" class="btn btn-secondary js-download-cv">
+              Download CV
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            </a>
+          </div>
+
+          <div class="hero-metrics reveal-on-scroll">
+            <div class="metric-item">
+              <div class="metric-value">8.72<span>CGPA</span></div>
+              <div class="metric-label">Current College CGPA</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">84.6<span>%</span></div>
+              <div class="metric-label">Class XII (2024)</div>
+            </div>
+            <div class="metric-item">
+              <div class="metric-value">05<span>+</span></div>
+              <div class="metric-label">Certifications</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 1: About Me - Ram Mandloi
+         ======================================================================== -->
+    <section class="section-padding bg-subtle-pattern" id="about">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">Ram <span class="accent-gold">Mandloi</span></h2>
+        </div>
+
+        <div class="about-grid">
+          <!-- Profile Photo Card -->
+          <div class="about-visual-wrapper reveal-on-scroll">
+            <div class="about-photo-card">
+              <div class="about-corner top-left"></div>
+              <div class="about-corner bottom-right"></div>
+              <img src="assets/avatar.jpg" alt="Ram Mandloi Profile Photo" class="about-photo" id="user-avatar-img">
+            </div>
+            
+            <div class="about-floating-badge">
+              <div class="floating-badge-icon">⚡</div>
+              <div>
+                <div class="floating-badge-title">Aspiring Data Scientist</div>
+                <div class="floating-badge-subtitle">Python • ML • Data Analysis</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Narrative Content -->
+          <div class="about-text-content reveal-on-scroll">
+            <div class="about-lead">
+              "Building data-driven intelligence and robust web applications from Sanawad, Madhya Pradesh."
+            </div>
+
+            <p class="about-paragraph">
+              I am a Computer Science Engineering undergraduate at <strong>SAGE University (2024-2028)</strong> with a deep passion for Data Science, Machine Learning, and Software Development.
+            </p>
+
+            <p class="about-paragraph">
+              With solid foundations in <strong>Data Structures & Algorithms (C++/Java)</strong>, Python data analysis, and modern web frameworks like Node.js, Express, and MongoDB, I focus on solving real-world challenges through clean code and automated systems.
+            </p>
+
+            <div class="about-skills-container">
+              <div class="skills-title">Technical Expertise</div>
+              <div class="skills-pills">
+                <span class="skill-pill">Python & Machine Learning</span>
+                <span class="skill-pill">Data Analysis & MySQL</span>
+                <span class="skill-pill">C++ & Java (DSA)</span>
+                <span class="skill-pill">HTML5, CSS3, JavaScript</span>
+                <span class="skill-pill">Node.js, Express & MongoDB</span>
+                <span class="skill-pill">Power BI & Adobe Photoshop</span>
+                <span class="skill-pill">Network Security</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 2: Resume / CV Section
+         ======================================================================== -->
+    <section class="section-padding" id="cv">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Resume</span>
+          <h2 class="section-title">Curriculum <span class="accent-gold">Vitae</span></h2>
+        </div>
+
+        <div class="cv-showcase reveal-on-scroll">
+          <div class="cv-grid">
+            <div class="cv-content">
+              <h3>Professional Summary</h3>
+              <p>Download Ram Mandloi's verified resume detailing academic records, data science projects, and technical certifications.</p>
+
+              <div class="cv-highlights">
+                <div class="cv-highlight-card">
+                  <div class="cv-highlight-icon">🎓</div>
+                  <div>
+                    <div class="cv-highlight-title">B.Tech CSE (2024-2028)</div>
+                    <div class="cv-highlight-sub">SAGE University</div>
+                  </div>
+                </div>
+                <div class="cv-highlight-card">
+                  <div class="cv-highlight-icon">⚡</div>
+                  <div>
+                    <div class="cv-highlight-title">AI & DSA Projects</div>
+                    <div class="cv-highlight-sub">Python, NLP & C++</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="cv-actions">
+                <button class="btn btn-gold js-download-cv" id="cv-download-btn">
+                  Download CV
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                </button>
+                <button class="btn btn-secondary js-preview-cv">
+                  Quick View
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="cv-preview-card">
+              <div class="cv-card-header">
+                <div class="cv-card-brand"><span class="x-red">X</span>Trex // RAM MANDLOI</div>
+                <div class="cv-card-status">● Open To Work</div>
+              </div>
+              <div class="cv-skeleton-line short gold"></div>
+              <div class="cv-skeleton-line medium"></div>
+              <div class="cv-skeleton-line" style="width: 88%;"></div>
+              <div class="cv-skeleton-line" style="width: 65%;"></div>
+              <div class="cv-skills-preview">
+                <span class="cv-tag">Python</span>
+                <span class="cv-tag">Machine Learning</span>
+                <span class="cv-tag">Data Analysis</span>
+                <span class="cv-tag">Node.js</span>
+                <span class="cv-tag">C++ DSA</span>
+                <span class="cv-tag">MongoDB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 3: Education & Certifications
+         ======================================================================== -->
+    <section class="section-padding bg-subtle-pattern" id="education">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Education</span>
+          <h2 class="section-title">Academic <span class="accent-gold">Journey</span></h2>
+        </div>
+
+        <div class="timeline">
+          <!-- B.Tech -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <span class="timeline-period">2024 — 2028</span>
+              <h3 class="timeline-degree">B.Tech in Computer Science Engineering</h3>
+              <div class="timeline-institution">SAGE University</div>
+              <p class="timeline-desc">Specialization in Data Science, Machine Learning, Algorithms, and Distributed Computing.</p>
+              <div class="timeline-badges">
+                <span class="timeline-badge" style="background: rgba(0, 153, 255, 0.15); border-color: var(--m-light-blue); color: var(--navy-900); font-weight: 800;">Current CGPA: 8.72</span>
+                <span class="timeline-badge">B.Tech CSE</span>
+                <span class="timeline-badge">Data Science</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Class XII -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <span class="timeline-period">2024</span>
+              <h3 class="timeline-degree">Higher Secondary School (Class XII)</h3>
+              <div class="timeline-institution">Shree Rewa Gurjar Bal Niketan Higher Secondary School, Sanawad</div>
+              <p class="timeline-desc">Completed Class XII with outstanding academic performance.</p>
+              <div class="timeline-badges">
+                <span class="timeline-badge">Percentage: 84.6%</span>
+                <span class="timeline-badge">Science & Mathematics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Class X -->
+          <div class="timeline-item reveal-on-scroll">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <span class="timeline-period">2022</span>
+              <h3 class="timeline-degree">Secondary School (Class X)</h3>
+              <div class="timeline-institution">Omkar Valley</div>
+              <p class="timeline-desc">High academic achievement in foundational sciences and mathematics.</p>
+              <div class="timeline-badges">
+                <span class="timeline-badge">Percentage: 81.8%</span>
+                <span class="timeline-badge">High Distinction</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 4: Certifications & Industry Workshops
+         ======================================================================== -->
+    <section class="section-padding" id="certifications">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Credentials</span>
+          <h2 class="section-title">Certifications & <span class="accent-gold">Workshops</span></h2>
+        </div>
+
+        <div class="certifications-grid">
+          <!-- Cert 1: Cisco C++ -->
+          <div class="cert-card reveal-on-scroll">
+            <div>
+              <div class="cert-header">
+                <div class="cert-icon-wrapper" style="background: #0099FF;">🛡️</div>
+                <span class="cert-date">Dec 2025</span>
+              </div>
+              <h3 class="cert-title">C Plus Plus Essentials One</h3>
+              <div class="cert-issuer">Cisco Networking Academy</div>
+            </div>
+            <div class="cert-skills">
+              <span class="cert-badge">C++</span>
+              <span class="cert-badge">OOP</span>
+              <span class="cert-badge">Memory Management</span>
+            </div>
+          </div>
+
+          <!-- Cert 2: Power BI -->
+          <div class="cert-card reveal-on-scroll">
+            <div>
+              <div class="cert-header">
+                <div class="cert-icon-wrapper" style="background: #F2C811; color: #000;">📊</div>
+                <span class="cert-date">Dec 2025</span>
+              </div>
+              <h3 class="cert-title">Power BI for Beginners</h3>
+              <div class="cert-issuer">Simplilearn SkillUp</div>
+            </div>
+            <div class="cert-skills">
+              <span class="cert-badge">Power BI</span>
+              <span class="cert-badge">Data Visualization</span>
+              <span class="cert-badge">Analytics</span>
+            </div>
+          </div>
+
+          <!-- Cert 3: Be10x AI & ChatGPT -->
+          <div class="cert-card reveal-on-scroll">
+            <div>
+              <div class="cert-header">
+                <div class="cert-icon-wrapper" style="background: #FF1744;">🤖</div>
+                <span class="cert-date">Feb 2026</span>
+              </div>
+              <h3 class="cert-title">AI Tools and ChatGPT Workshop</h3>
+              <div class="cert-issuer">Be10x (Skills learned: Python)</div>
+            </div>
+            <div class="cert-skills">
+              <span class="cert-badge">Python AI</span>
+              <span class="cert-badge">Prompt Engineering</span>
+              <span class="cert-badge">Automation</span>
+            </div>
+          </div>
+
+          <!-- Cert 4: Sunstone Hack Tour -->
+          <div class="cert-card reveal-on-scroll">
+            <div>
+              <div class="cert-header">
+                <div class="cert-icon-wrapper" style="background: #6366F1;">🚀</div>
+                <span class="cert-date">Jan 2025</span>
+              </div>
+              <h3 class="cert-title">Hack Tour India 2025</h3>
+              <div class="cert-issuer">Applied School powered by Sunstone</div>
+            </div>
+            <div class="cert-skills">
+              <span class="cert-badge">Hackathon</span>
+              <span class="cert-badge">Problem Solving</span>
+              <span class="cert-badge">Innovation</span>
+            </div>
+          </div>
+
+          <!-- Cert 5: Physics Wallah -->
+          <div class="cert-card reveal-on-scroll">
+            <div>
+              <div class="cert-header">
+                <div class="cert-icon-wrapper" style="background: #10B981;">⚡</div>
+                <span class="cert-date">Jan 2025</span>
+              </div>
+              <h3 class="cert-title">The Rise of ChatGPT</h3>
+              <div class="cert-issuer">Physics Wallah</div>
+            </div>
+            <div class="cert-skills">
+              <span class="cert-badge">Generative AI</span>
+              <span class="cert-badge">NLP Applications</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 4: Technical Projects Showcase
+         ======================================================================== -->
+    <section class="section-padding" id="projects">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Portfolio</span>
+          <h2 class="section-title">Technical <span class="accent-gold">Projects</span></h2>
+        </div>
+
+        <div class="projects-filter reveal-on-scroll">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="ai">AI & Assistant</button>
+          <button class="filter-btn" data-filter="web">Web & UI</button>
+          <button class="filter-btn" data-filter="dsa">DSA & Algorithms</button>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1: Personalized AI Assistant -->
+          <div class="project-card reveal-on-scroll" data-category="ai">
+            <div class="project-thumb-container">
+              <span class="project-category-badge">AI & NLP</span>
+              <img src="assets/project-neural.jpg" alt="Personalized AI Assistant" class="project-thumb">
+              <div class="project-overlay"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Personalized AI Assistant (2026)</h3>
+              <p class="project-desc">Responsive AI assistant with voice and text responses, improving user interaction through NLP and speech recognition automation.</p>
+              <div class="project-tags">
+                <span class="project-tag">Node.js</span>
+                <span class="project-tag">Express.js</span>
+                <span class="project-tag">MongoDB</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">NLP</span>
+              </div>
+              <div class="project-footer" style="display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <a href="https://xtrexeditz.github.io/Personalized-Ai-assistant/" target="_blank" rel="noopener noreferrer" class="project-link-btn" style="background: var(--m-red); color: #fff; border-color: var(--m-red);">
+                  🚀 Live Demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+                <a href="https://github.com/xtrexeditz/Personalized-Ai-assistant" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                  GitHub Repo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: XTrex Travel Website (Maharaja) -->
+          <div class="project-card reveal-on-scroll" data-category="web">
+            <div class="project-thumb-container">
+              <span class="project-category-badge">Web Application</span>
+              <img src="assets/project-telematics.jpg" alt="XTrex Travel Website" class="project-thumb">
+              <div class="project-overlay"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">XTrex Travel Website (Maharaja)</h3>
+              <p class="project-desc">Interactive travel exploration web application with responsive UI components, cross-device compatibility, and GitHub Pages hosting.</p>
+              <div class="project-tags">
+                <span class="project-tag">HTML5</span>
+                <span class="project-tag">CSS3</span>
+                <span class="project-tag">JavaScript</span>
+                <span class="project-tag">GitHub Pages</span>
+              </div>
+              <div class="project-footer" style="display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <a href="https://xtrexeditz.github.io/Maharaja-/" target="_blank" rel="noopener noreferrer" class="project-link-btn" style="background: var(--m-light-blue); color: #fff; border-color: var(--m-light-blue);">
+                  🚀 Live Demo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+                </a>
+                <a href="https://github.com/xtrexeditz/Maharaja-" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                  GitHub Repo
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Problem Solving & DSA -->
+          <div class="project-card reveal-on-scroll" data-category="dsa">
+            <div class="project-thumb-container">
+              <span class="project-category-badge">Data Structures</span>
+              <img src="assets/project-fintech.jpg" alt="Data Structures & Algorithms" class="project-thumb">
+              <div class="project-overlay"></div>
+            </div>
+            <div class="project-body">
+              <h3 class="project-title">Problem Solving & LeetCode Track</h3>
+              <p class="project-desc">Algorithmic problem-solving in C/C++ and Java covering arrays, linked lists, trees, graphs, hashing, and dynamic programming with Big-O optimization.</p>
+              <div class="project-tags">
+                <span class="project-tag">C++</span>
+                <span class="project-tag">Java</span>
+                <span class="project-tag">LeetCode</span>
+                <span class="project-tag">Algorithms</span>
+              </div>
+              <div class="project-footer" style="display: flex; gap: 8px; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                <a href="https://github.com/xtrexeditz" target="_blank" rel="noopener noreferrer" class="project-link-btn">
+                  GitHub Profile
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--m-light-blue);">Optimized DSA</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 5: Social Handles & Links
+         ======================================================================== -->
+    <section class="section-padding bg-subtle-pattern" id="socials">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Network</span>
+          <h2 class="section-title">Connect with <span class="accent-gold">Ram</span></h2>
+        </div>
+
+        <div class="socials-panel reveal-on-scroll">
+          <div class="socials-pills-bar">
+            <!-- LinkedIn Profile -->
+            <a href="https://www.linkedin.com/in/ram-mandloi-1b80b1347" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="LinkedIn">
+              <div class="social-icon-box">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </div>
+              <span>LinkedIn</span>
+            </a>
+
+            <!-- GitHub Profile -->
+            <a href="https://github.com/xtrexeditz" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="GitHub">
+              <div class="social-icon-box">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              </div>
+              <span>GitHub</span>
+            </a>
+
+            <!-- Instagram Profile -->
+            <a href="https://www.instagram.com/say.ram_?igsi=MWNscjE0eDNydTF0dg%3D%3D" target="_blank" rel="noopener noreferrer" class="social-pill" aria-label="Instagram">
+              <div class="social-icon-box" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </div>
+              <span>Instagram</span>
+            </a>
+
+            <!-- Direct Email -->
+            <a href="mailto:rammandloi142@gmail.com" class="social-pill" aria-label="Email">
+              <div class="social-icon-box">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l9.214 7.466c.174.141.387.211.6.211.214 0 .427-.07.601-.211l9.213-7.466v11.817h-19.628z"/></svg>
+              </div>
+              <span>Email</span>
+            </a>
+
+            <!-- Phone / WhatsApp -->
+            <a href="tel:9343223908" class="social-pill" aria-label="Phone">
+              <div class="social-icon-box">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.2 2.2z"/></svg>
+              </div>
+              <span>+91 9343223908</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         Section 6: Contact Section
+         ======================================================================== -->
+    <section class="section-padding" id="contact">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <span class="section-tag">Direct Line</span>
+          <h2 class="section-title">Contact <span class="accent-gold">Me</span></h2>
+        </div>
+
+        <div class="contact-grid reveal-on-scroll">
+          <div class="contact-info">
+            <div>
+              <div class="contact-info-header">
+                <h3>Get In Touch</h3>
+                <p>Feel free to reach out for project collaborations, internships, or data science opportunities.</p>
+              </div>
+
+              <div class="contact-details-list">
+                <div class="contact-detail-item">
+                  <div class="contact-detail-icon">📍</div>
+                  <div>
+                    <div class="contact-detail-label">Location</div>
+                    <div class="contact-detail-val">Sanawad, Madhya Pradesh, India</div>
+                  </div>
+                </div>
+
+                <div class="contact-detail-item">
+                  <div class="contact-detail-icon">🔒</div>
+                  <div>
+                    <div class="contact-detail-label">Email</div>
+                    <div class="contact-detail-val">rammandloi142@gmail.com</div>
+                  </div>
+                </div>
+
+                <div class="contact-detail-item">
+                  <div class="contact-detail-icon">📱</div>
+                  <div>
+                    <div class="contact-detail-label">Mobile / WhatsApp</div>
+                    <div class="contact-detail-val">+91 9343223908</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" id="portfolio-contact-form" action="#" method="POST">
+            <div class="form-group">
+              <label for="contact-name" class="form-label">Name</label>
+              <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your Name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email" class="form-label">Email</label>
+              <input type="email" id="contact-email" name="email" class="form-input" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message" class="form-label">Message</label>
+              <textarea id="contact-message" name="message" class="form-textarea" placeholder="Your Message..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit-btn">
+              Send Message
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       Footer
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#hero" class="logo">
+            <span class="logo-symbol">X</span>
+            <span class="logo-text"><span class="x-red">X</span>Trex<span class="logo-dot">.</span></span>
+          </a>
+          <p>Ram Mandloi — Aspiring Data Scientist & Software Developer.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#about" class="footer-link">About</a></li>
+            <li><a href="#cv" class="footer-link">Resume</a></li>
+            <li><a href="#education" class="footer-link">Education</a></li>
+            <li><a href="#certifications" class="footer-link">Certifications</a></li>
+            <li><a href="#projects" class="footer-link">Projects</a></li>
+            <li><a href="#contact" class="footer-link">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#cv" class="footer-link js-preview-cv">📄 Quick View CV</a></li>
+            <li><a href="#cv" class="footer-link js-download-cv">📥 Download CV</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 <strong>Ram Mandloi (XTrex)</strong>. All rights reserved.</div>
+        <a href="#hero" class="back-to-top">
+          Back to Apex
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 16px; height: 16px;"><path d="M18 15l-6-6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       CV Quick Preview Modal
+       ======================================================================== -->
+  <div class="modal-backdrop" id="cv-modal" aria-hidden="true" role="dialog">
+    <div class="modal-container" style="max-width: 740px;">
+      <button class="modal-close-btn" onclick="closeCVModal()" aria-label="Close modal">&times;</button>
+      <div style="border-bottom: 2px solid var(--m-light-blue); padding-bottom: 16px; margin-bottom: 20px;">
+        <h2 style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--navy-900);">Ram Mandloi • Resume</h2>
+        <p style="font-size: 0.88rem; color: var(--m-light-blue); font-weight: 700; margin-top: 4px;">Aspiring Data Scientist | Python, ML, Data Analysis</p>
+      </div>
+
+      <div style="font-size: 0.95rem; color: var(--charcoal-700); line-height: 1.7;">
+        <div style="margin-bottom: 18px;">
+          <h4 style="color: var(--navy-900); font-size: 1.05rem; margin-bottom: 6px;">Contact & Links</h4>
+          <p style="color: var(--charcoal-600); font-size: 0.9rem;">
+            📧 rammandloi142@gmail.com | 📞 +91 9343223908 | 📍 Sanawad, MP<br>
+            🔗 github.com/xtrexeditz | linkedin.com/in/ram-mandloi-1b80b1347
+          </p>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+          <h4 style="color: var(--navy-900); font-size: 1.05rem; margin-bottom: 6px;">Technical Skills</h4>
+          <p style="color: var(--charcoal-600); font-size: 0.9rem;">
+            <strong>Hard Skills:</strong> Python, Machine Learning, Data Analysis, MongoDB, MySQL, Node.js, Express, JavaScript, Java, C++, HTML/CSS, Photoshop, Network Security<br>
+            <strong>Soft Skills:</strong> Critical Thinking, Problem Solving, Teamwork, Adaptability
+          </p>
+        </div>
+
+        <div style="margin-bottom: 18px;">
+          <h4 style="color: var(--navy-900); font-size: 1.05rem; margin-bottom: 6px;">Key Projects</h4>
+          <ul style="padding-left: 20px; color: var(--charcoal-600); font-size: 0.9rem;">
+            <li><strong>Personalized AI Assistant (2026)</strong> — NLP voice & text assistance using Node.js & MongoDB.</li>
+            <li><strong>XTrex Travel Website (2025)</strong> — Interactive front-end design with cross-device compatibility.</li>
+            <li><strong>Problem Solving & DSA Track</strong> — Optimized algorithms in C/C++ and Java.</li>
+          </ul>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: var(--navy-900); font-size: 1.05rem; margin-bottom: 6px;">Education</h4>
+          <p style="color: var(--charcoal-600); font-size: 0.9rem;">
+            • <strong>B.Tech CSE</strong> — SAGE University (2024-2028) | <strong>CGPA: 8.72</strong><br>
+            • <strong>Class XII (2024)</strong> — Shree Rewa Gurjar Bal Niketan (84.6%)<br>
+            • <strong>Class X (2022)</strong> — Omkar Valley (81.8%)
+          </p>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 14px; justify-content: flex-end; border-top: 1px solid var(--charcoal-200); padding-top: 20px;">
+        <button class="btn btn-secondary" onclick="closeCVModal()">Close</button>
+        <button class="btn btn-gold js-download-cv">
+          Download PDF / HTML
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/m5-canvas.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
