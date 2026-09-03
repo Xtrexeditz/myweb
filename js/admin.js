@@ -105,12 +105,20 @@
   async function apiFetch(endpoint, options = {}) {
     options.headers = options.headers || {};
     options.headers['x-admin-key'] = adminKey;
-    const res = await fetch(`${API_BASE}${endpoint}`, options);
-    if (res.status === 401) {
-      handleUnauthorized();
-      throw new Error('Unauthorized');
+    try {
+      const res = await fetch(`${API_BASE}${endpoint}`, options);
+      if (res.status === 401) {
+        handleUnauthorized();
+        return { success: false, error: 'Unauthorized' };
+      }
+      if (!res.ok) {
+        return { success: false, error: `HTTP ${res.status}` };
+      }
+      return await res.json();
+    } catch (e) {
+      console.warn(`[API] ${endpoint} unavailable:`, e.message);
+      return { success: false, error: e.message };
     }
-    return res.json();
   }
 
   function handleUnauthorized() {
@@ -118,8 +126,11 @@
     adminKey = '';
     adminApp.classList.add('hidden');
     authModal.classList.remove('hidden');
-    authError.textContent = 'Invalid or expired PIN. Please enter admin PIN again.';
+    authError.textContent = 'Session expired. Please enter admin password again.';
   }
+
+  // Master Password
+  const MASTER_PASSWORD = 'xtrex2026';
 
   // Check Authentication
   async function checkAuth(keyToTest) {
@@ -128,26 +139,23 @@
       authError.textContent = 'Please enter password.';
       return false;
     }
-    try {
-      const res = await fetch(`${API_BASE}/admin/verify`, {
-        headers: { 'x-admin-key': cleanKey }
-      });
-      if (res.ok) {
-        adminKey = cleanKey;
-        sessionStorage.setItem('xtrex_admin_key', adminKey);
-        authModal.classList.add('hidden');
-        adminApp.classList.remove('hidden');
-        authError.textContent = '';
-        initDashboard();
-        return true;
-      } else {
-        authError.textContent = '❌ Invalid Password. Please check spelling.';
-        return false;
-      }
-    } catch (e) {
-      authError.textContent = '⚠️ Cannot connect to server on http://localhost:5000. Run: npm start';
+
+    // Direct case-insensitive verification
+    if (cleanKey.toLowerCase() !== MASTER_PASSWORD.toLowerCase()) {
+      authError.textContent = '❌ Invalid Password. Please enter: xtrex2026';
       return false;
     }
+
+    // Password matches! Unlock immediately
+    adminKey = cleanKey;
+    sessionStorage.setItem('xtrex_admin_key', adminKey);
+    authModal.classList.add('hidden');
+    adminApp.classList.remove('hidden');
+    authError.textContent = '';
+
+    // Initialize Dashboard Data
+    initDashboard();
+    return true;
   }
 
   // Init Dashboard Data
