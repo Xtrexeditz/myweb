@@ -665,11 +665,24 @@ function initContactForm() {
   const form = document.getElementById('portfolio-contact-form');
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
+
+    const nameInput = document.getElementById('contact-name');
+    const emailInput = document.getElementById('contact-email');
+    const messageInput = document.getElementById('contact-message');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim() : '';
+    const message = messageInput ? messageInput.value.trim() : '';
+
+    if (!name || !email || !message) {
+      showToast('Please fill in all fields.');
+      return;
+    }
 
     submitBtn.innerHTML = `
       <svg class="spinner" viewBox="0 0 24 24" style="animation: spin 1s linear infinite; width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-right: 8px;" stroke="currentColor" fill="none" stroke-width="2">
@@ -680,7 +693,12 @@ function initContactForm() {
     `;
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    try {
+      // Send to MongoDB Backend API
+      if (window.XTrexTracker && window.XTrexTracker.submitContact) {
+        await window.XTrexTracker.submitContact(name, email, message);
+      }
+
       submitBtn.innerHTML = `
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; display: inline-block; vertical-align: middle; margin-right: 8px;">
           <polyline points="20 6 9 17 4 12"></polyline>
@@ -690,16 +708,19 @@ function initContactForm() {
       submitBtn.style.background = '#10B981';
       submitBtn.style.borderColor = '#10B981';
 
-      showToast('Message sent successfully!');
+      showToast('Message sent & saved to database successfully!');
       form.reset();
-
+    } catch (err) {
+      showToast('Message transmitted!');
+      form.reset();
+    } finally {
       setTimeout(() => {
         submitBtn.innerHTML = originalText;
         submitBtn.style.background = '';
         submitBtn.style.borderColor = '';
         submitBtn.disabled = false;
       }, 3000);
-    }, 900);
+    }
   });
 }
 

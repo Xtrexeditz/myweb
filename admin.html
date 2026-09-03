@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XTrex Admin • Live Visitor Intelligence & Telemetry</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body class="admin-body">
+
+  <!-- ========================================================================
+       PIN / Secret Key Auth Modal
+       ======================================================================== -->
+  <div id="auth-modal" class="auth-modal-overlay">
+    <div class="auth-box">
+      <div class="auth-logo">
+        <div class="m5-logo-badge">X</div>
+        <h2>XTrex <span class="x-red">Command</span> Center</h2>
+      </div>
+      <p class="auth-subtitle">Enter your Admin Security Password to access live visitor telemetry and database logs.</p>
+      
+      <form id="auth-form">
+        <div class="auth-input-wrap">
+          <input type="password" id="admin-key-input" placeholder="••••••••••••" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary auth-btn">
+          Unlock Dashboard
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width: 18px; height: 18px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <div id="auth-error" class="auth-error-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Admin Main Shell
+       ======================================================================== -->
+  <div id="admin-app" class="admin-app hidden">
+    <!-- Top Navigation Header -->
+    <header class="admin-header">
+      <div class="admin-container admin-nav-flex">
+        <div class="admin-brand">
+          <a href="/" class="logo">
+            <span class="logo-symbol">X</span>
+            <span class="logo-text"><span class="x-red">X</span>Trex<span class="logo-dot">.</span> <small class="brand-tag">Analytics Hub</small></span>
+          </a>
+          <div class="live-status-badge">
+            <span class="pulse-dot"></span>
+            <span>Live Stream</span>
+          </div>
+        </div>
+
+        <div class="admin-actions-bar">
+          <div class="auto-refresh-toggle">
+            <label class="switch-label">
+              <input type="checkbox" id="auto-refresh-chk" checked>
+              <span class="switch-slider"></span>
+              <span class="switch-text">Auto Refresh (15s)</span>
+            </label>
+          </div>
+
+          <button id="refresh-btn" class="btn btn-secondary btn-sm" title="Refresh Now">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Refresh
+          </button>
+
+          <button id="export-csv-btn" class="btn btn-gold btn-sm" title="Download Excel/CSV report">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Export CSV
+          </button>
+
+          <a href="/" class="btn btn-secondary btn-sm" target="_blank">
+            Visit Website ↗
+          </a>
+
+          <button id="logout-btn" class="btn btn-secondary btn-sm btn-logout" title="Lock Dashboard">
+            Lock 🔒
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="admin-container main-admin-content">
+
+      <!-- Navigation Tabs -->
+      <div class="dashboard-tabs">
+        <button class="dash-tab active" data-tab="visitors-tab">
+          🏎️ Live Visitors (<span id="tab-visitor-count">0</span>)
+        </button>
+        <button class="dash-tab" data-tab="messages-tab">
+          📬 Contact Messages (<span id="tab-msg-count">0</span>)
+        </button>
+        <button class="dash-tab" data-tab="insights-tab">
+          📊 Traffic Insights
+        </button>
+      </div>
+
+      <!-- ====================================================================
+           Tab 1: Live Visitors
+           ==================================================================== -->
+      <div id="visitors-tab" class="tab-pane active">
+        <!-- Metric Cards Grid -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon blue">👁️</div>
+            <div class="metric-info">
+              <span class="metric-label">Total Visits</span>
+              <h3 class="metric-value" id="stat-total-visits">0</h3>
+              <span class="metric-sub">Lifetime page hits</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon purple">👤</div>
+            <div class="metric-info">
+              <span class="metric-label">Unique Visitors</span>
+              <h3 class="metric-value" id="stat-unique-visitors">0</h3>
+              <span class="metric-sub">Distinct devices/users</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon red">🔥</div>
+            <div class="metric-info">
+              <span class="metric-label">Today / 24h</span>
+              <h3 class="metric-value" id="stat-today-visits">0</h3>
+              <span class="metric-sub">Past 24 hours visits</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon gold">⏱️</div>
+            <div class="metric-info">
+              <span class="metric-label">Avg. Duration</span>
+              <h3 class="metric-value" id="stat-avg-duration">0s</h3>
+              <span class="metric-sub">Active reading time</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Link Generator Card -->
+        <div class="link-generator-card" style="background: var(--admin-card-bg); border: 1px solid var(--admin-card-border); border-left: 4px solid var(--m-laser-blue); border-radius: 12px; padding: 18px 22px; margin-bottom: 22px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 1.2rem;">🔗</span>
+              <h4 style="margin: 0; font-size: 1.05rem; color: #FFFFFF;">Social Media Tracking Link Generator</h4>
+            </div>
+            <span style="font-size: 0.8rem; color: #94A3B8;">Share this link to automatically track the person's username & platform</span>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+            <select id="gen-platform" class="filter-select" style="min-width: 140px;">
+              <option value="Instagram">📸 Instagram</option>
+              <option value="LinkedIn">💼 LinkedIn</option>
+              <option value="WhatsApp">💬 WhatsApp</option>
+              <option value="Twitter">🐦 Twitter / X</option>
+              <option value="Custom">🌐 Other / Custom</option>
+            </select>
+
+            <input type="text" id="gen-username" placeholder="Enter Username / Name (e.g. rahul_verma)" class="filter-select" style="flex: 1; min-width: 220px;">
+
+            <button id="gen-copy-btn" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px;">
+              📋 Generate & Copy Link
+            </button>
+          </div>
+          <div id="gen-link-preview" style="margin-top: 10px; font-size: 0.82rem; color: #38BDF8; font-family: monospace; word-break: break-all; min-height: 18px;"></div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="toolbar-card">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="filter-search" placeholder="Search by Username, Platform, IP, City, OS, or Browser...">
+          </div>
+
+          <div class="filter-controls">
+            <select id="filter-platform" class="filter-select">
+              <option value="">All Platforms</option>
+              <option value="Instagram">📸 Instagram</option>
+              <option value="LinkedIn">💼 LinkedIn</option>
+              <option value="WhatsApp">💬 WhatsApp</option>
+              <option value="Twitter">🐦 Twitter / X</option>
+              <option value="Direct">🌐 Direct / Other</option>
+            </select>
+
+            <select id="filter-device" class="filter-select">
+              <option value="">All Devices</option>
+              <option value="Desktop">Desktop (PC/Mac)</option>
+              <option value="Mobile">Mobile (Smartphones)</option>
+              <option value="Tablet">Tablet</option>
+            </select>
+
+            <select id="filter-country" class="filter-select">
+              <option value="">All Countries</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visitors Table -->
+        <div class="table-card">
+          <div class="table-header-bar">
+            <h4>Live Visitor Telemetry Feed</h4>
+            <span class="table-count-label" id="table-showing-label">Showing 0 logs</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="telemetry-table" id="visitors-table">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Visitor ID & DB ID</th>
+                  <th>Social Platform & User</th>
+                  <th>Location & City</th>
+                  <th>IP Address</th>
+                  <th>Device & OS</th>
+                  <th>Browser</th>
+                  <th>Visit Time (IST)</th>
+                  <th>Duration</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="visitors-tbody">
+                <tr>
+                  <td colspan="10" class="loading-td">
+                    <div class="table-spinner"></div>
+                    Fetching live visitor logs from database...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination-bar" id="pagination-controls">
+            <button class="btn btn-secondary btn-sm" id="prev-page-btn" disabled>« Previous</button>
+            <span id="page-info-text">Page 1 of 1</span>
+            <button class="btn btn-secondary btn-sm" id="next-page-btn" disabled>Next »</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           Tab 2: Contact Messages Inbox
+           ==================================================================== -->
+      <div id="messages-tab" class="tab-pane">
+        <div class="table-card">
+          <div class="table-header-bar">
+            <h4>Direct Messages from Portfolio Contact Form</h4>
+            <span class="table-count-label" id="msg-showing-label">0 Messages</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="telemetry-table">
+              <thead>
+                <tr>
+                  <th>Message ID</th>
+                  <th>Sender Name</th>
+                  <th>Email</th>
+                  <th>Message</th>
+                  <th>Sender Location & IP</th>
+                  <th>Sent Date (IST)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="messages-tbody">
+                <tr>
+                  <td colspan="7" class="loading-td">Loading messages...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           Tab 3: Traffic Insights & Geo Breakdown
+           ==================================================================== -->
+      <div id="insights-tab" class="tab-pane">
+        <div class="insights-grid">
+          <div class="insight-card">
+            <h4>🌍 Top Visitor Locations</h4>
+            <div id="top-countries-list" class="breakdown-list">
+              <p class="muted-text">Gathering country metrics...</p>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <h4>📱 Device Ecosystem</h4>
+            <div id="device-breakdown-list" class="breakdown-list">
+              <p class="muted-text">Gathering device metrics...</p>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <h4>🌐 Top Browsers</h4>
+            <div id="browser-breakdown-list" class="breakdown-list">
+              <p class="muted-text">Gathering browser metrics...</p>
+            </div>
+          </div>
+
+          <div class="insight-card">
+            <h4>🔗 Referrer Traffic Sources</h4>
+            <div id="referrer-breakdown-list" class="breakdown-list">
+              <p class="muted-text">Gathering referrer metrics...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

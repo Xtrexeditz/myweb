@@ -582,6 +582,53 @@ input, textarea {
   font-size: 0.88rem;
 }
 
+/* Admin Icon Button in Header */
+.btn-admin-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  background: #080B12;
+  color: #FFFFFF;
+  border: 1.5px solid rgba(0, 153, 255, 0.4);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-admin-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--m-stripe-gradient);
+}
+
+.btn-admin-icon:hover {
+  background: #0F172A;
+  border-color: var(--m-light-blue);
+  color: #38BDF8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 153, 255, 0.35);
+}
+
+.btn-admin-icon svg {
+  stroke: var(--m-light-blue);
+  transition: stroke var(--transition-fast);
+}
+
+.btn-admin-icon:hover svg {
+  stroke: #FFFFFF;
+}
+
 /* Mobile Toggle */
 .mobile-toggle {
   display: none;
