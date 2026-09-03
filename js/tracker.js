@@ -8,10 +8,17 @@
   'use strict';
 
   // Config: Determine API Base URL dynamically
-  const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  const API_BASE = isLocalDev && window.location.port !== '5000' && window.location.protocol.startsWith('http')
-    ? 'http://localhost:5000/api'
-    : '/api';
+  function resolveApiBase() {
+    const custom = localStorage.getItem('xtrex_api_base');
+    if (custom) return custom.replace(/\/$/, '');
+
+    const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalDev && window.location.port !== '5000' && window.location.protocol.startsWith('http')) {
+      return 'http://localhost:5000/api';
+    }
+    return '/api';
+  }
+  const API_BASE = resolveApiBase();
 
   // 1. Generate or Retrieve Unique Visitor ID
   function getOrCreateVisitorId() {

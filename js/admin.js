@@ -7,6 +7,9 @@
 
   // API Base resolution
   function resolveApiBase() {
+    const custom = localStorage.getItem('xtrex_api_base');
+    if (custom) return custom.replace(/\/$/, '');
+
     if (window.location.protocol === 'file:') {
       return 'http://localhost:5000/api';
     }
@@ -35,6 +38,12 @@
   const togglePwBtn = document.getElementById('toggle-pw-btn');
   const authError = document.getElementById('auth-error');
   const adminApp = document.getElementById('admin-app');
+
+  const backendStatusBar = document.getElementById('backend-status-bar');
+  const backendStatusDot = document.getElementById('backend-status-dot');
+  const backendStatusText = document.getElementById('backend-status-text');
+  const currentApiUrl = document.getElementById('current-api-url');
+  const btnChangeApi = document.getElementById('btn-change-api');
 
   const statTotalVisits = document.getElementById('stat-total-visits');
   const statUniqueVisitors = document.getElementById('stat-unique-visitors');
@@ -290,11 +299,43 @@
         renderVisitorsTable(currentVisitorsData);
         updatePagination(data.pagination);
 
+        // Update Backend Status Bar
+        if (backendStatusDot) backendStatusDot.style.background = '#10B981';
+        if (backendStatusBar) backendStatusBar.style.borderLeft = '4px solid #10B981';
+        if (backendStatusText) backendStatusText.textContent = `🟢 Connected to MongoDB (${data.pagination.total || currentVisitorsData.length} records logged)`;
+        if (currentApiUrl) currentApiUrl.textContent = API_BASE;
+
         // Populate country filter dropdown
         currentVisitorsData.forEach(v => {
           if (v.country && v.country !== 'Unknown') availableCountries.add(v.country);
         });
         updateCountryDropdown();
+      } else {
+        if (backendStatusDot) backendStatusDot.style.background = '#EF4444';
+        if (backendStatusBar) backendStatusBar.style.borderLeft = '4px solid #EF4444';
+        if (backendStatusText) backendStatusText.textContent = `🔴 Backend Offline on: ${API_BASE}`;
+        if (currentApiUrl) currentApiUrl.textContent = API_BASE;
+
+        tableShowingLabel.textContent = 'Backend Offline';
+        visitorsTbody.innerHTML = `
+          <tr>
+            <td colspan="10" style="padding: 35px 20px; text-align: center; color: #F1F5F9; line-height: 1.8;">
+              <div style="font-size: 2rem; margin-bottom: 8px;">📡</div>
+              <h4 style="color: #F87171; font-size: 1.15rem; margin-bottom: 8px;">Backend Database Server Not Connected on this Host!</h4>
+              <p style="color: #94A3B8; max-width: 620px; margin: 0 auto 16px; font-size: 0.9rem;">
+                Aap website ko static host (jaise <strong>GitHub Pages</strong>) par dekh rahe hain. GitHub Pages par Node.js server run nahi hota.
+              </p>
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="http://localhost:5000/admin.html" target="_blank" class="btn btn-primary btn-sm" style="padding: 10px 18px;">
+                  🖥️ Open Localhost:5000 (All 40 Records Saved!)
+                </a>
+                <button onclick="document.getElementById('btn-change-api').click()" class="btn btn-secondary btn-sm" style="padding: 10px 18px;">
+                  ⚙️ Connect Render Cloud Backend URL
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
       }
     } catch (e) {
       console.warn('Visitors load error:', e);
@@ -616,6 +657,22 @@
   if (filterPlatform) filterPlatform.addEventListener('change', () => loadVisitors(1));
   filterDevice.addEventListener('change', () => loadVisitors(1));
   filterCountry.addEventListener('change', () => loadVisitors(1));
+
+  // Set Cloud Backend URL Handler
+  if (btnChangeApi) {
+    btnChangeApi.addEventListener('click', () => {
+      const current = localStorage.getItem('xtrex_api_base') || API_BASE;
+      const newUrl = prompt('Enter your Cloud Backend URL (e.g. https://your-backend.onrender.com/api):\nLeave blank to reset to default.', current);
+      if (newUrl !== null) {
+        if (newUrl.trim()) {
+          localStorage.setItem('xtrex_api_base', newUrl.trim());
+        } else {
+          localStorage.removeItem('xtrex_api_base');
+        }
+        window.location.reload();
+      }
+    });
+  }
 
   refreshBtn.addEventListener('click', () => {
     loadStats();
