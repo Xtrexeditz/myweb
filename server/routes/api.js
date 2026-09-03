@@ -8,14 +8,15 @@ const { getGeoLocation } = require('../utils/geo');
 
 // Middleware to authenticate admin requests
 const authenticateAdmin = (req, res, next) => {
-  const adminSecret = process.env.ADMIN_SECRET_KEY || 'xtrex2026';
-  const providedKey = req.headers['x-admin-key'] || req.query.adminKey;
+  const adminSecret = (process.env.ADMIN_SECRET_KEY || 'xtrex2026').trim().toLowerCase();
+  const rawProvidedKey = req.headers['x-admin-key'] || req.query.adminKey || '';
+  const providedKey = rawProvidedKey.toString().trim().toLowerCase();
 
-  // In development, allow if key matches or header is provided
+  // Case-insensitive match to handle mobile keyboard auto-capitalization (Xtrex2026 vs xtrex2026)
   if (!providedKey || providedKey !== adminSecret) {
     return res.status(401).json({
       success: false,
-      message: 'Unauthorized. Invalid Admin Key.'
+      message: 'Unauthorized. Invalid Admin Password.'
     });
   }
   next();

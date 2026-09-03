@@ -6,10 +6,19 @@
   'use strict';
 
   // API Base resolution
-  const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  const API_BASE = isLocalDev && window.location.port !== '5000' && window.location.protocol.startsWith('http')
-    ? 'http://localhost:5000/api'
-    : '/api';
+  function resolveApiBase() {
+    if (window.location.protocol === 'file:') {
+      return 'http://localhost:5000/api';
+    }
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      if (window.location.port !== '5000') {
+        return 'http://localhost:5000/api';
+      }
+      return '/api';
+    }
+    return '/api';
+  }
+  const API_BASE = resolveApiBase();
 
   // State
   let adminKey = sessionStorage.getItem('xtrex_admin_key') || '';
@@ -23,6 +32,7 @@
   const authModal = document.getElementById('auth-modal');
   const authForm = document.getElementById('auth-form');
   const adminKeyInput = document.getElementById('admin-key-input');
+  const togglePwBtn = document.getElementById('toggle-pw-btn');
   const authError = document.getElementById('auth-error');
   const adminApp = document.getElementById('admin-app');
 
@@ -113,23 +123,29 @@
 
   // Check Authentication
   async function checkAuth(keyToTest) {
+    const cleanKey = (keyToTest || '').trim();
+    if (!cleanKey) {
+      authError.textContent = 'Please enter password.';
+      return false;
+    }
     try {
       const res = await fetch(`${API_BASE}/admin/verify`, {
-        headers: { 'x-admin-key': keyToTest }
+        headers: { 'x-admin-key': cleanKey }
       });
       if (res.ok) {
-        adminKey = keyToTest;
+        adminKey = cleanKey;
         sessionStorage.setItem('xtrex_admin_key', adminKey);
         authModal.classList.add('hidden');
         adminApp.classList.remove('hidden');
+        authError.textContent = '';
         initDashboard();
         return true;
       } else {
-        authError.textContent = 'Incorrect Password. Access Denied.';
+        authError.textContent = '❌ Invalid Password. Please check spelling.';
         return false;
       }
     } catch (e) {
-      authError.textContent = 'Backend server not reachable on http://localhost:5000';
+      authError.textContent = '⚠️ Cannot connect to server on http://localhost:5000. Run: npm start';
       return false;
     }
   }
@@ -624,6 +640,15 @@
     adminKeyInput.value = '';
     if (autoRefreshTimer) clearInterval(autoRefreshTimer);
   });
+
+  // Password Visibility Toggle
+  if (togglePwBtn && adminKeyInput) {
+    togglePwBtn.addEventListener('click', () => {
+      const isPw = adminKeyInput.type === 'password';
+      adminKeyInput.type = isPw ? 'text' : 'password';
+      togglePwBtn.textContent = isPw ? '🙈' : '👁️';
+    });
+  }
 
   // Auth Form Submit
   authForm.addEventListener('submit', async (e) => {
